@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="da">
+    <head>
+        <title>IWP Yatzy Game</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="css/style.css" /></head
+    >To get help on playing the game, please consult the
+    <a href="resources/help.html"> help page</a
+    >, and general description of the
+    <a href="https://da.wikipedia.org/wiki/Yatzy"> Yatzy game</a>
+    <body>
+        <form action="/newgame" method="post">
+            <fieldset>
+                <legend>Configure Game:</legend>
+                <label for="name_id"> Name:</label>
+                <input
+                    type="text"
+                    id="name_id"
+                    name="name"
+                    placeholder="Navn"
+                    autofocus
+                    required
+                    minlength="1"
+                    maxlength="30"
+                />
+                <label for="diceCount_id"> Number of Dice:</label>
+                <input
+                    type="number"
+                    id="diceCount_id"
+                    name="diceCount"
+                    placeholder="5"
+                    min="5"
+                    max="20"
+                    required
+                />
+                <label for="difficultyLevel_id"> Difficulty Level:</label>
+                <input
+                    type="number"
+                    id="difficultyLevel_id"
+                    name="difficultyLevel"
+                    placeholder="1"
+                    min="1.0"
+                    max="2.0"
+                    required
+                />
+                <label for="top_down" name="play_direction">
+                    Play Top Down:</label
+                >
+                <input
+                    type="radio"
+                    id="top_down"
+                    name="play_direction"
+                    value="top_down"
+                    required
+                />
+                <label for="bottom_up" name="play_direction">
+                    Play Bottom Up:</label
+                >
+                <input
+                    type="radio"
+                    id="bottom_up"
+                    name="play_direction"
+                    value="bottom_up"
+                    required
+                />
+                <input type="submit" value="New Game" />
+            </fieldset>
+        </form>
+
+        <table id="scoretable">
+            <caption>
+                Yatzy Scores
+            </caption>
+            <thead>
+                <tr>
+                    <th colspan="3">Player</th>
+                </tr>
+                <tr>
+                    <th>Round Name</th>
+                    <th>Dice</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="left-text">1s</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4"
+                        /></span>
+                    </td>
+                    <td class="right-text">1</td>
+                </tr>
+                <tr>
+                    <td class="left-text">2s</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1"
+                        /></span>
+                    </td>
+                    <td class="right-text">2</td>
+                </tr>
+                <tr>
+                    <td class="left-text">3s</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5"
+                        /></span>
+                    </td>
+                    <td class="right-text">6</td>
+                </tr>
+                <tr>
+                    <td class="left-text">4s</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1"
+                        /></span>
+                    </td>
+                    <td class="right-text">12</td>
+                </tr>
+                <tr>
+                    <td class="left-text">5s</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1"
+                        /></span>
+                    </td>
+                    <td class="right-text">10</td>
+                </tr>
+                <tr>
+                    <td class="left-text">6s</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5"
+                        /></span>
+                    </td>
+                    <td class="right-text">6</td>
+                </tr>
+                <tr class="row-fill">
+                    <td class="left-text">Sum</td>
+                    <td></td>
+                    <td class="right-text">37</td>
+                </tr>
+                <tr class="row-fill">
+                    <td class="left-text">Bonus</td>
+                    <td></td>
+                    <td class="right-text">0</td>
+                </tr>
+                <tr>
+                    <td class="left-text">1 Pair</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5"
+                        /></span>
+                    </td>
+                    <td class="right-text">12</td>
+                </tr>
+                <tr>
+                    <td class="left-text">2 Pairs</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6"
+                        /></span>
+                    </td>
+                    <td class="right-text">22</td>
+                </tr>
+                <tr>
+                    <td class="left-text">Three Identical</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5"
+                        /></span>
+                    </td>
+                    <td class="right-text">15</td>
+                </tr>
+                <tr>
+                    <td class="left-text">Four Identical</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6"
+                        /></span>
+                    </td>
+                    <td class="right-text">0</td>
+                </tr>
+                <tr>
+                    <td class="left-text">Little Straight</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6"
+                        /></span>
+                    </td>
+                    <td class="right-text">0</td>
+                </tr>
+                <tr>
+                    <td class="left-text">Big Straight</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4"
+                        /></span>
+                    </td>
+                    <td class="right-text">20</td>
+                </tr>
+                <tr>
+                    <td class="left-text">House</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/3-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 3"
+                                title="dice 3" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6"
+                        /></span>
+                    </td>
+                    <td class="right-text">24</td>
+                </tr>
+                <tr>
+                    <td class="left-text">Chance</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/1-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 1"
+                                title="dice 1" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5"
+                        /></span>
+                    </td>
+                    <td class="right-text">26</td>
+                </tr>
+                <tr>
+                    <td class="left-text">Yatzy</td>
+                    <td>
+                        <span
+                            ><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/6-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 6"
+                                title="dice 6" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/5-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 5"
+                                title="dice 5" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2" /><img
+                                src="resources/4-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 4"
+                                title="dice 4" /><img
+                                src="resources/2-dice.png"
+                                width="20"
+                                height="20"
+                                alt="dice 2"
+                                title="dice 2"
+                        /></span>
+                    </td>
+                    <td class="right-text">0</td>
+                </tr>
+                <tr class="row-fill">
+                    <td class="left-text">Total Score</td>
+                    <td></td>
+                    <td class="right-text">156</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
